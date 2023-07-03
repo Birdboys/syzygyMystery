@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://dq0p1rpctigm8"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_fb4b0"]
-[ext_resource type="Theme" uid="uid://cbbach0iuxfwb" path="res://Assets/themes/monitorglow.tres" id="2_6ydlh"]
 [ext_resource type="PackedScene" uid="uid://diwctax0r8rln" path="res://Scenes/ui.tscn" id="2_jbat7"]
+[ext_resource type="Theme" uid="uid://dwphwrxs1ek5x" path="res://Assets/themes/noiretruth.tres" id="2_wf1pm"]
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_fb4b0")
@@ -15,13 +15,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("2_6ydlh")
+theme = ExtResource("2_wf1pm")
 
 [node name="UI" parent="UILAYER" instance=ExtResource("2_jbat7")]
 offset_left = 10.0
 offset_top = 10.0
 offset_right = -10.0
 offset_bottom = -10.0
-theme = ExtResource("2_6ydlh")
+theme = ExtResource("2_wf1pm")
 
 [connection signal="issue_command" from="UILAYER/UI" to="." method="_on_ui_issue_command"]

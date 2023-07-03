@@ -1,16 +1,18 @@
 extends Node2D
 
 @onready var UI = $UILAYER/UI
-@onready var themes = {'monitorglow':preload("res://Assets/themes/monitorglow.tres"), 'pixelink':preload("res://Assets/themes/pixelink.tres"), 'paperback':preload("res://Assets/themes/paperback.tres"), 'ygreen':preload('res://Assets/themes/ygreen.tres')}
-@onready var theme_names = ['monitorglow','pixelink','paperback','ygreen']
+@onready var themes = {'monitorglow':preload("res://Assets/themes/monitorglow.tres"), 'pixelink':preload("res://Assets/themes/pixelink.tres"), 'paperback':preload("res://Assets/themes/paperback.tres"), 'ygreen':preload('res://Assets/themes/ygreen.tres'),'noiretruth':preload("res://Assets/themes/noiretruth.tres")}
+@onready var theme_names = ['monitorglow','pixelink','paperback','ygreen','noiretruth']
 @onready var help_text = FileAccess.open("res://Assets/texts/help_text.txt", FileAccess.READ).get_as_text()
 @onready var rooms = {}
 @onready var theme_id = 0
+@onready var num_themes = 4
 @export var currentRoom: String
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	initRooms()
+	theme_id = RandomNumberGenerator.new().randi_range(0,num_themes)
 	currentRoom = 'entry'
 	setTheme(theme_names[theme_id])
 	UI.updateLookImage(currentRoom, theme_names[theme_id])
@@ -41,6 +43,8 @@ func _on_ui_issue_command(command):
 		_ : print("THE FUCK JUST HAPPENED")
 
 func executeLook(command_data):
+	var txt = TextLoader.look_text[rooms[currentRoom].look_text]
+	UI.addLogText(txt)
 	print("EXECUTING LOOK COMMAND")
 func executeHelp(command_data):
 	UI.addLogText(help_text)
@@ -82,19 +86,17 @@ func updateUITheme(theme):
 	UI.updateTheme(theme)
 #[entry, closet, bathroom, kitchen, living room, balcony]
 func initRooms(): #n, adj, out, obj
-	rooms['entry'] = defaultRoom.new('entry', ['kitchen','closet','bathroom','bedroom'], false, [])
-	rooms['closet'] = defaultRoom.new('closet',['entry','bathroom','bedroom'], false, [])
-	rooms['bathroom'] = defaultRoom.new('bathroom', ['closet','bedroom','entry'], false, [])
-	rooms['kitchen'] = defaultRoom.new('kitchen', ['entry','living','balcony'], false, [])
-	rooms['living'] = defaultRoom.new('living', ['kitchen','balcony'], false, [])
-	rooms['balcony'] = defaultRoom.new('balcony', ['living'], true, [])
-	rooms['bedroom'] = defaultRoom.new('bedroom', ['bathroom', 'entry', 'closet'], false, [])
-	print(rooms)
-	print('balcony' in rooms)
+	rooms['entry'] = defaultRoom.new('entry', ['kitchen','closet','bathroom','bedroom'], false, [], 'entry_default')
+	rooms['closet'] = defaultRoom.new('closet',['entry','bathroom','bedroom'], false, [], 'closet_default')
+	rooms['bathroom'] = defaultRoom.new('bathroom', ['closet','bedroom','entry'], false, [], 'bathroom_default')
+	rooms['kitchen'] = defaultRoom.new('kitchen', ['entry','living'], false, [], 'kitchen_default')
+	rooms['living'] = defaultRoom.new('living', ['kitchen','balcony'], false, [], 'living_default')
+	rooms['balcony'] = defaultRoom.new('balcony', ['living'], true, [], 'balcony_default')
+	rooms['bedroom'] = defaultRoom.new('bedroom', ['bathroom', 'entry', 'closet'], false, [], 'bedroom_default')
 
 func _input(event):
 	if event.is_action_pressed("toggle_theme"):
-		theme_id = (theme_id +1) % 4
+		theme_id = (theme_id +1) % 5
 		setTheme(theme_names[theme_id])
 		print(theme_names[theme_id])
 		

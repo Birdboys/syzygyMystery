@@ -1,0 +1,9 @@
+{
+    "entry_default": "The entryway to the apartment. A decorative floor mat and minimal coat rack mark the only flare in an upscale yet woefully barebones apartment. Hallways leading to the closet, bathroom, and bedroom are all visible, as is the open kitchen to the left.",
+    "kitchen_default": "The kitchen is simple but functional. Sink, refrigerator, and gas stove: the necessary appliances. Despite having the facilities for it, the kitchen is in no state to be used for cooking. Dirty dishes and utensils litter the counters, a confounding sight considering the heaping mass of takeout containers and plastic silverware forming in the trash can.",
+    "closet_default": "It closet lmao",
+    "bathroom_default": "It bathroom",
+    "bedroom_default": "It bedroom",
+    "living_default": "It living room",
+    "balcony": "It balcony"
+}
