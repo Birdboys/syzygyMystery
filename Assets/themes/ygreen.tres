@@ -1,0 +1,49 @@
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://cebamptt1kt5w"]
+
+[ext_resource type="FontFile" uid="uid://3hmiw1bfys74" path="res://Assets/fonts/Agdasima-Bold.ttf" id="1_bdb5s"]
+[ext_resource type="FontFile" uid="uid://bjjbicluls55w" path="res://Assets/fonts/Agdasima-Regular.ttf" id="2_fxepk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ocflp"]
+bg_color = Color(0, 0.298039, 0.239216, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eknht"]
+bg_color = Color(1, 0.917647, 0.976471, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0, 0.298039, 0.239216, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w3q2g"]
+bg_color = Color(0, 0.298039, 0.239216, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_agory"]
+bg_color = Color(1, 0.917647, 0.976471, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8wlon"]
+bg_color = Color(0, 0.298039, 0.239216, 1)
+border_width_left = 8
+border_width_bottom = 4
+border_color = Color(0, 0.298039, 0.239216, 1)
+
+[resource]
+Button/styles/hover = SubResource("StyleBoxFlat_ocflp")
+Button/styles/normal = SubResource("StyleBoxFlat_eknht")
+Label/colors/font_color = Color(0, 0.298039, 0.239216, 1)
+Label/font_sizes/font_size = 48
+Label/fonts/font = ExtResource("1_bdb5s")
+LineEdit/colors/caret_color = Color(1, 0.917647, 0.976471, 1)
+LineEdit/colors/font_color = Color(1, 0.917647, 0.976471, 1)
+LineEdit/colors/selection_color = Color(0, 0.298039, 0.239216, 1)
+LineEdit/constants/caret_width = 2
+LineEdit/font_sizes/font_size = 24
+LineEdit/fonts/font = ExtResource("1_bdb5s")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_w3q2g")
+Panel/styles/panel = SubResource("StyleBoxFlat_agory")
+RichTextLabel/colors/default_color = Color(1, 0.917647, 0.976471, 1)
+RichTextLabel/colors/font_outline_color = Color(1, 0.917647, 0.976471, 1)
+RichTextLabel/font_sizes/bold_font_size = 24
+RichTextLabel/font_sizes/normal_font_size = 24
+RichTextLabel/fonts/bold_font = ExtResource("1_bdb5s")
+RichTextLabel/fonts/normal_font = ExtResource("2_fxepk")
+RichTextLabel/styles/normal = SubResource("StyleBoxFlat_8wlon")

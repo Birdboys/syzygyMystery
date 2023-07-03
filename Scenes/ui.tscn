@@ -1,24 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://diwctax0r8rln"]
+[gd_scene load_steps=5 format=3 uid="uid://diwctax0r8rln"]
 
 [ext_resource type="Script" path="res://Scripts/ui.gd" id="1_cl1p8"]
-[ext_resource type="Texture2D" uid="uid://ca2o64ntidf2l" path="res://Assets/temp_apartment.jpg" id="1_srag8"]
-[ext_resource type="FontFile" uid="uid://bjjbicluls55w" path="res://Assets/fonts/Agdasima-Regular.ttf" id="2_1yl3k"]
-[ext_resource type="FontFile" uid="uid://3hmiw1bfys74" path="res://Assets/fonts/Agdasima-Bold.ttf" id="3_jofxq"]
+[ext_resource type="Theme" uid="uid://cebamptt1kt5w" path="res://Assets/themes/ygreen.tres" id="1_og7cw"]
+[ext_resource type="Texture2D" uid="uid://c7m0k5v2y71f7" path="res://Assets/temp_rooms/paperback/balcony.png" id="3_xn6we"]
 [ext_resource type="Script" path="res://Scripts/inputText.gd" id="5_ofolb"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qwsdn"]
-bg_color = Color(0.219608, 0.168627, 0.14902, 1)
-corner_detail = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vmune"]
-bg_color = Color(0.219608, 0.168627, 0.14902, 1)
-border_width_left = 10
-border_width_top = 2
-border_width_bottom = 2
-border_color = Color(0.219608, 0.168627, 0.14902, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q0f7r"]
-bg_color = Color(0.219608, 0.168627, 0.14902, 1)
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -32,6 +17,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 localize_numeral_system = false
+theme = ExtResource("1_og7cw")
 script = ExtResource("1_cl1p8")
 
 [node name="imagePanel" type="Panel" parent="."]
@@ -48,10 +34,63 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -316.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_srag8")
+texture = ExtResource("3_xn6we")
 expand_mode = 1
+
+[node name="GridContainer" type="GridContainer" parent="imagePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 624.0
+offset_top = 84.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = -100
+theme_override_constants/v_separation = -10
+columns = 2
+
+[node name="Button3" type="Button" parent="imagePanel/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="Button4" type="Button" parent="imagePanel/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="Button5" type="Button" parent="imagePanel/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="Button6" type="Button" parent="imagePanel/GridContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="lookText" type="Label" parent="imagePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 624.0
+offset_bottom = -218.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "dsadasdasd"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
 
 [node name="textStuff" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -62,47 +101,20 @@ offset_top = 312.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="logBackground" type="Panel" parent="textStuff"]
-custom_minimum_size = Vector2(0, 130)
+[node name="logText" type="RichTextLabel" parent="textStuff"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_qwsdn")
-
-[node name="logText" type="RichTextLabel" parent="textStuff/logBackground"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 3
-theme_override_colors/default_color = Color(0.721569, 0.760784, 0.72549, 1)
-theme_override_colors/table_even_row_bg = Color(0, 0, 0, 0)
-theme_override_colors/table_border = Color(0, 0, 0, 0)
-theme_override_fonts/normal_font = ExtResource("2_1yl3k")
-theme_override_fonts/bold_font = ExtResource("3_jofxq")
-theme_override_font_sizes/normal_font_size = 24
-theme_override_font_sizes/bold_font_size = 24
 scroll_following = true
 
 [node name="inputText" type="LineEdit" parent="textStuff"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.721569, 0.760784, 0.72549, 1)
-theme_override_colors/caret_color = Color(0.721569, 0.760784, 0.72549, 1)
-theme_override_colors/selection_color = Color(0.219608, 0.168627, 0.14902, 1)
-theme_override_constants/outline_size = 0
-theme_override_constants/caret_width = 4
-theme_override_fonts/font = ExtResource("3_jofxq")
-theme_override_font_sizes/font_size = 25
-theme_override_styles/normal = SubResource("StyleBoxFlat_vmune")
-theme_override_styles/focus = SubResource("StyleBoxFlat_q0f7r")
 text = "> "
 selecting_enabled = false
 caret_blink = true
 caret_mid_grapheme = false
 script = ExtResource("5_ofolb")
 
-[node name="divider" type="ColorRect" parent="."]
+[node name="divider" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -111,6 +123,5 @@ offset_top = 306.0
 offset_bottom = -204.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.721569, 0.760784, 0.72549, 1)
 
 [connection signal="text_submitted" from="textStuff/inputText" to="." method="_on_input_text_text_submitted"]

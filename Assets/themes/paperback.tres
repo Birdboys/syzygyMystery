@@ -1,0 +1,49 @@
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://cqym0cwtbfo4k"]
+
+[ext_resource type="FontFile" uid="uid://3hmiw1bfys74" path="res://Assets/fonts/Agdasima-Bold.ttf" id="1_lf3tf"]
+[ext_resource type="FontFile" uid="uid://bjjbicluls55w" path="res://Assets/fonts/Agdasima-Regular.ttf" id="2_pltxu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_47way"]
+bg_color = Color(0.219608, 0.168627, 0.14902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qy10g"]
+bg_color = Color(0.721569, 0.760784, 0.72549, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.219608, 0.168627, 0.14902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w3q2g"]
+bg_color = Color(0.219608, 0.168627, 0.14902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2vcwm"]
+bg_color = Color(0.721569, 0.760784, 0.72549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j8lqe"]
+bg_color = Color(0.219608, 0.168627, 0.14902, 1)
+border_width_left = 8
+border_width_bottom = 4
+border_color = Color(0.219608, 0.168627, 0.14902, 1)
+
+[resource]
+Button/styles/hover = SubResource("StyleBoxFlat_47way")
+Button/styles/normal = SubResource("StyleBoxFlat_qy10g")
+Label/colors/font_color = Color(0.219608, 0.168627, 0.14902, 1)
+Label/font_sizes/font_size = 48
+Label/fonts/font = ExtResource("1_lf3tf")
+LineEdit/colors/caret_color = Color(0.721569, 0.760784, 0.72549, 1)
+LineEdit/colors/font_color = Color(0.721569, 0.760784, 0.72549, 1)
+LineEdit/colors/selection_color = Color(0.219608, 0.168627, 0.14902, 1)
+LineEdit/constants/caret_width = 2
+LineEdit/font_sizes/font_size = 24
+LineEdit/fonts/font = ExtResource("1_lf3tf")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_w3q2g")
+Panel/styles/panel = SubResource("StyleBoxFlat_2vcwm")
+RichTextLabel/colors/default_color = Color(0.721569, 0.760784, 0.72549, 1)
+RichTextLabel/colors/font_outline_color = Color(0.721569, 0.760784, 0.72549, 1)
+RichTextLabel/font_sizes/bold_font_size = 24
+RichTextLabel/font_sizes/normal_font_size = 24
+RichTextLabel/fonts/bold_font = ExtResource("1_lf3tf")
+RichTextLabel/fonts/normal_font = ExtResource("2_pltxu")
+RichTextLabel/styles/normal = SubResource("StyleBoxFlat_j8lqe")
