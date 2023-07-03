@@ -75,6 +75,15 @@ func executeGo(command_data):
 		UI.addLogText("Room not found")
 	print("EXECUTING GO COMMAND")
 func executeExamine(command_data):
+	var data = command_data['data']
+	var exam_object = null
+	for token in data:
+		exam_object = rooms[currentRoom].examineObject(token)
+		if exam_object:
+			var examine_text = TextLoader.getExamineText(currentRoom, exam_object.examine()[0], str(exam_object.examine()[1]))
+			UI.addLogText(examine_text)
+			return
+	UI.addLogText("That won't be of any help")
 	print("EXECUTING EXAMINE COMMAND")
 func executeInventory(command_data):
 	print("EXECUTING INVENTORY COMMAND")
@@ -86,7 +95,7 @@ func updateUITheme(theme):
 	UI.updateTheme(theme)
 #[entry, closet, bathroom, kitchen, living room, balcony]
 func initRooms(): #n, adj, out, obj
-	rooms['entry'] = defaultRoom.new('entry', ['kitchen','closet','bathroom','bedroom'], false, [], 'entry_default')
+	rooms['entry'] = entryRoom.new()
 	rooms['closet'] = defaultRoom.new('closet',['entry','bathroom','bedroom'], false, [], 'closet_default')
 	rooms['bathroom'] = defaultRoom.new('bathroom', ['closet','bedroom','entry'], false, [], 'bathroom_default')
 	rooms['kitchen'] = defaultRoom.new('kitchen', ['entry','living'], false, [], 'kitchen_default')

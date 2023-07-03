@@ -1,6 +1,7 @@
 extends Node
 @onready var look_text_path = "res://Assets/texts/look_texts.json"
 @onready var look_text
+@onready var examine_text_path = "res://Assets/texts/%s/%s.json"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	look_text = getLookText(look_text_path)
@@ -22,3 +23,23 @@ func getLookText(save_path):
 	else:
 		print("invalid look text path")
 		return {}
+
+func getExamineText(room_name, object_name, object_id):
+	var object_examine_path = examine_text_path % [room_name, object_name]
+	print(object_examine_path)
+	if FileAccess.file_exists(object_examine_path): #we have data
+		var obj_data = FileAccess.open(object_examine_path, FileAccess.READ)
+		var parsed_data = JSON.parse_string(obj_data.get_as_text())
+		print(parsed_data)
+		obj_data.close()
+		if parsed_data is Dictionary:
+			if object_id in parsed_data:
+				return parsed_data[object_id]
+			else:
+				print("INVALID EXAMINE TEXT ID")
+				return null
+		else:
+			print("some kinda object data loading error")	
+	else:
+		print("invalid object text path")
+		return null

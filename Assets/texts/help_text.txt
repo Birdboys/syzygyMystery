@@ -2,9 +2,9 @@
 [b]Map:[/b] Open map
 [b]Go:[/b] Move to an adjacent room
 [b]Look:[/b] Pull up photo and description of current room
-[b]Examine:[/b] Pull up photo and description of object in current room
+[b]Examine:[/b] Pull up photo and description of object in current room or inventory
 [b]Take:[/b] Attempt to take object and put it in inventory
-[b]Use:[/b] Attempt to use object 
+[b]Use:[/b] Attempt to use object in current room or inventory
 [b]Speak:[/b] Speak to person in current room
 [b]Inventory:[/b] Open inventory
 [b]Help:[/b] Print list of commands and their functions
