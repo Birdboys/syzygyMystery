@@ -30,9 +30,9 @@ func _on_ui_issue_command(command):
 	if parsed_command == null:	
 		UI.addLogText("I don't know what you mean")
 		return
-	match parsed_command['operation']:
+	match parsed_command['verb']:
 		'help': executeHelp(parsed_command)
-		'look': executeLook(parsed_command)
+		'look': executeLook(parsed_command, command)
 		'speak': executeSpeak(parsed_command)
 		'use': executeUse(parsed_command)
 		'go': executeGo(parsed_command)
@@ -42,10 +42,36 @@ func _on_ui_issue_command(command):
 		'take': executeTake(parsed_command)
 		_ : print("THE FUCK JUST HAPPENED")
 
-func executeLook(command_data):
-	var txt = TextLoader.look_text[rooms[currentRoom].look_text]
-	UI.addLogText(txt)
-	print("EXECUTING LOOK COMMAND")
+func executeLook(command_data, command):
+	print(command_data, command)
+	var look_target = command_data['direct_object']
+	if look_target == null: #validate empty look
+		if command == '> look': #if its really empty
+			look_target = currentRoom
+		else: #if its empty because command is bad
+			UI.addLogText("Can not look at that")
+			return
+	var look_prep = command_data['prep'] #get the preposition from the look command
+	var look_result = null
+	if look_target == currentRoom: #if we are looking at current room
+		look_result = TextLoader.getLookText(currentRoom, currentRoom, rooms[currentRoom].look_text_id, null)
+		if look_result == null: #invalid object look id
+			UI.addLogText("WHAT THE FUCK EVEN HAPPENDEDNASD AS")
+		else:
+			print(look_result)
+			UI.addLogText(look_result)
+	else:
+		var look_data = rooms[currentRoom].isObjectInRoom(look_target, look_prep) #get data from looked at object if it exists
+		if look_data == null: #if that object doesn't exist
+			UI.addLogText('You cannot look there')
+			return
+		look_result = TextLoader.getLookText(currentRoom, look_data[0], look_data[1], look_data[2])
+		if look_result == null: #invalid object look id
+			UI.addLogText("WHAT THE FUCK EVEN HAPPENDEDNASD AS")
+		else:
+			print(look_result)
+			UI.addLogText(look_result)
+	
 func executeHelp(command_data):
 	UI.addLogText(help_text)
 func executeMap(command_data):
@@ -53,27 +79,21 @@ func executeMap(command_data):
 func executeUse(command_data):
 	print("EXECUTING USE COMMAND")
 func executeGo(command_data):
-	var data = command_data['data']
-	var room_count = 0
-	var room_change = null
-	for token in data:
-		if rooms[currentRoom].isRoomConnected(token):
-			room_count += 1
-			room_change = token
-	if room_change:
-		if room_count == 1:
-			if room_change != currentRoom:
-				currentRoom = room_change
-				UI.updateLookImage(currentRoom, theme_names[theme_id])
-				UI.updateLookText(currentRoom[0].to_upper()+currentRoom.substr(1))
-				UI.addLogText("You have moved into the %s" %(room_change))
-			else:
-				UI.addLogText("You are already in the %s" %(room_change))
+	var room_change = command_data['direct_object']
+	if room_change == null:
+		UI.addLogText("You must enter a location to move")
+		return
+	if rooms[currentRoom].isRoomConnected(room_change):
+		if room_change != currentRoom:
+			currentRoom = room_change
+			UI.updateLookImage(currentRoom, theme_names[theme_id])
+			UI.updateLookText(currentRoom[0].to_upper()+currentRoom.substr(1))
+			UI.addLogText("You have moved into the %s" %(room_change))
 		else:
-			UI.addLogText("You can only move to one room at a time")
+			UI.addLogText("You are already in the %s" %(room_change))
 	else:
-		UI.addLogText("Room not found")
-	print("EXECUTING GO COMMAND")
+		UI.addLogText("Location not found: %s" %(room_change))
+	#print("EXECUTING GO COMMAND")
 func executeExamine(command_data):
 	var data = command_data['data']
 	var exam_object = null
@@ -93,14 +113,14 @@ func executeTake(command_data):
 	print("EXECUTING TAKE COMMAND")
 func updateUITheme(theme):
 	UI.updateTheme(theme)
-#[entry, closet, bathroom, kitchen, living room, balcony]
+#[entry, closet, bathroom, kitchen, lounge room, balcony]
 func initRooms(): #n, adj, out, obj
 	rooms['entry'] = entryRoom.new()
 	rooms['closet'] = defaultRoom.new('closet',['entry','bathroom','bedroom'], false, [], 'closet_default')
 	rooms['bathroom'] = defaultRoom.new('bathroom', ['closet','bedroom','entry'], false, [], 'bathroom_default')
-	rooms['kitchen'] = defaultRoom.new('kitchen', ['entry','living'], false, [], 'kitchen_default')
-	rooms['living'] = defaultRoom.new('living', ['kitchen','balcony'], false, [], 'living_default')
-	rooms['balcony'] = defaultRoom.new('balcony', ['living'], true, [], 'balcony_default')
+	rooms['kitchen'] = defaultRoom.new('kitchen', ['entry','lounge'], false, [], 'kitchen_default')
+	rooms['lounge'] = defaultRoom.new('lounge', ['kitchen','balcony'], false, [], 'lounge_default')
+	rooms['balcony'] = defaultRoom.new('balcony', ['lounge'], true, [], 'balcony_default')
 	rooms['bedroom'] = defaultRoom.new('bedroom', ['bathroom', 'entry', 'closet'], false, [], 'bedroom_default')
 
 func _input(event):

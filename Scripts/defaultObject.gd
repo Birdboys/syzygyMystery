@@ -5,17 +5,16 @@ var alias = [name]
 var been_examined = false
 var in_inventory = false
 var takeable = false
-var examine_text_id = 0
+var look_text_id = 0
+var look_preps = []
 
-func _init(n, al, ex=false,inv=false,take=false):
+func _init(n, al, p=[], ex=false,inv=false,take=false):
 	name = n
 	alias = al
 	been_examined = ex
 	in_inventory = inv
 	takeable = take
-	
-func examine():
-	return [name, examine_text_id]
+	look_preps = p
 	
 func take():
 	if takeable and not in_inventory:
@@ -29,3 +28,9 @@ func use():
 	
 func isObject(token):
 	return token in alias
+	
+func look(prep):
+	if prep in look_preps:
+		return [name, look_text_id, prep]
+	else:
+		return [name, look_text_id, null]
