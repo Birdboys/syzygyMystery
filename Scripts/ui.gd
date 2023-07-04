@@ -1,6 +1,6 @@
 extends Control
 
-@onready var inputText = $textStuff/inputText
+@onready var inputText = $inputText
 @onready var logText = $textStuff/logText
 @onready var lookImage = $imagePanel/lookImage
 @onready var spaceStrip = RegEx.new()
@@ -10,7 +10,6 @@ signal issue_command(command)
 func _ready():
 	spaceStrip.compile('\\s+')
 	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

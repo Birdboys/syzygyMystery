@@ -12,7 +12,8 @@ extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	initRooms()
-	theme_id = RandomNumberGenerator.new().randi_range(0,num_themes)
+	#theme_id = RandomNumberGenerator.new().randi_range(0,num_themes)
+	theme_id = 0
 	currentRoom = 'entry'
 	setTheme(theme_names[theme_id])
 	UI.updateLookImage(currentRoom, theme_names[theme_id])
@@ -48,7 +49,7 @@ func executeLook(command_data, command):
 		if command == '> look': #if its really empty
 			look_target = currentRoom
 		else: #if its empty because command is bad
-			UI.addLogText("Can not look at that")
+			UI.addLogText("Can not look there")
 			return
 	var look_prep = command_data['prep'] #get the preposition from the look command
 	var look_result = null
