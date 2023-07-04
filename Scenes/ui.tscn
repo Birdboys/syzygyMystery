@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://diwctax0r8rln"]
 
 [ext_resource type="Script" path="res://Scripts/ui.gd" id="1_cl1p8"]
-[ext_resource type="Theme" uid="uid://cebamptt1kt5w" path="res://Assets/themes/ygreen.tres" id="1_og7cw"]
+[ext_resource type="Theme" uid="uid://cbbach0iuxfwb" path="res://Assets/themes/monitorglow.tres" id="1_gawxa"]
 [ext_resource type="Texture2D" uid="uid://c7m0k5v2y71f7" path="res://Assets/temp_rooms/paperback/balcony.png" id="3_xn6we"]
 [ext_resource type="Script" path="res://Scripts/logText.gd" id="4_47nlu"]
 [ext_resource type="Texture2D" uid="uid://cgx2j82yd03gm" path="res://Assets/map.png" id="4_xr02f"]
@@ -19,7 +19,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 localize_numeral_system = false
-theme = ExtResource("1_og7cw")
+theme = ExtResource("1_gawxa")
 script = ExtResource("1_cl1p8")
 
 [node name="imagePanel" type="Panel" parent="."]
@@ -30,6 +30,8 @@ anchor_bottom = 1.0
 offset_bottom = -208.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_mode = 1
+theme_type_variation = &"MenuPanel"
 
 [node name="lookImage" type="TextureRect" parent="imagePanel"]
 layout_mode = 1
@@ -42,56 +44,63 @@ grow_vertical = 2
 texture = ExtResource("3_xn6we")
 expand_mode = 1
 
-[node name="GridContainer" type="GridContainer" parent="imagePanel"]
+[node name="Panel" type="Panel" parent="imagePanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 624.0
-offset_top = 84.0
-offset_bottom = -20.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"MenuPanel"
+
+[node name="GridContainer" type="GridContainer" parent="imagePanel/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 64.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/h_separation = -100
 theme_override_constants/v_separation = -10
 columns = 2
 
-[node name="Button3" type="Button" parent="imagePanel/GridContainer"]
+[node name="Button3" type="Button" parent="imagePanel/Panel/GridContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 
-[node name="Button4" type="Button" parent="imagePanel/GridContainer"]
+[node name="Button4" type="Button" parent="imagePanel/Panel/GridContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 
-[node name="Button5" type="Button" parent="imagePanel/GridContainer"]
+[node name="Button5" type="Button" parent="imagePanel/Panel/GridContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 
-[node name="Button6" type="Button" parent="imagePanel/GridContainer"]
+[node name="Button6" type="Button" parent="imagePanel/Panel/GridContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 
-[node name="lookText" type="Label" parent="imagePanel"]
+[node name="lookText" type="Label" parent="imagePanel/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 624.0
-offset_bottom = -218.0
+offset_top = 19.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "dsadasdasd"
 horizontal_alignment = 1
-vertical_alignment = 1
 uppercase = true
 
 [node name="textStuff" type="VBoxContainer" parent="."]
@@ -121,12 +130,11 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="mapPanel" type="Panel" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = -29.0
+offset_bottom = -33.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_type_variation = &"MenuPanel"
@@ -158,7 +166,9 @@ offset_left = -40.0
 offset_top = -58.0
 grow_horizontal = 0
 grow_vertical = 0
-text = "'close' to exit"
+theme_override_font_sizes/font_size = 24
+text = "'close' to exit  "
+vertical_alignment = 2
 
 [node name="inputText" type="LineEdit" parent="."]
 layout_mode = 2

@@ -1,25 +1,40 @@
-[gd_resource type="Theme" load_steps=9 format=3 uid="uid://cbbach0iuxfwb"]
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://cbbach0iuxfwb"]
 
 [ext_resource type="FontFile" uid="uid://3hmiw1bfys74" path="res://Assets/fonts/Agdasima-Bold.ttf" id="1_tqsos"]
 [ext_resource type="FontFile" uid="uid://bjjbicluls55w" path="res://Assets/fonts/Agdasima-Regular.ttf" id="2_2qfgh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vvkxa"]
-bg_color = Color(0.133333, 0.137255, 0.137255, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7jmfv"]
 bg_color = Color(0.941176, 0.964706, 0.941176, 1)
 border_width_left = 10
 border_width_top = 10
 border_width_right = 10
 border_width_bottom = 10
-border_color = Color(0.133333, 0.137255, 0.137255, 1)
+border_color = Color(0.941176, 0.964706, 0.941176, 1)
+corner_detail = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7jmfv"]
+bg_color = Color(0.133333, 0.137255, 0.137255, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.941176, 0.964706, 0.941176, 1)
+corner_detail = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sto5r"]
+bg_color = Color(0.941176, 0.964706, 0.941176, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0.941176, 0.964706, 0.941176, 1)
+corner_detail = 12
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w3q2g"]
 bg_color = Color(0.133333, 0.137255, 0.137255, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m8nq2"]
 bg_color = Color(0.133333, 0.137255, 0.137255, 1)
-border_width_bottom = 4
 border_color = Color(0.941176, 0.964706, 0.941176, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_agory"]
@@ -34,7 +49,8 @@ border_color = Color(0.133333, 0.137255, 0.137255, 1)
 [resource]
 Button/styles/hover = SubResource("StyleBoxFlat_vvkxa")
 Button/styles/normal = SubResource("StyleBoxFlat_7jmfv")
-Label/colors/font_color = Color(0.133333, 0.137255, 0.137255, 1)
+Button/styles/pressed = SubResource("StyleBoxFlat_sto5r")
+Label/colors/font_color = Color(0.941176, 0.964706, 0.941176, 1)
 Label/font_sizes/font_size = 48
 Label/fonts/font = ExtResource("1_tqsos")
 LineEdit/colors/caret_color = Color(0.941176, 0.964706, 0.941176, 1)

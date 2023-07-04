@@ -4,7 +4,7 @@ extends Control
 @onready var logText = $textStuff/logText
 @onready var lookImage = $imagePanel/lookImage
 @onready var spaceStrip = RegEx.new()
-@onready var lookText = $imagePanel/lookText
+@onready var lookText = $imagePanel/Panel/lookText
 @onready var scrollVal := 0.05
 signal issue_command(command)
 # Called when the node enters the scene tree for the first time.
