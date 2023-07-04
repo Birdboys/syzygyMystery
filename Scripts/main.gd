@@ -12,6 +12,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	print(len(help_text))
 	initRooms()
 	#theme_id = RandomNumberGenerator.new().randi_range(0,num_themes)
 	theme_id = 0

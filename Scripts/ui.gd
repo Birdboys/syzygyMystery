@@ -16,15 +16,18 @@ func _ready():
 func _process(delta):
 	pass
 func _on_input_text_text_submitted(new_text):
+	logText.finishTyping()
 	var command = new_text.to_lower().strip_edges()
 	inputText.clear()
 	inputText.insert_text_at_caret('> ')
 	command = spaceStrip.sub(command, ' ', true)
 	if len(command.split(' ')) > 1:
 		emit_signal("issue_command", command)
+		
 
 func addLogText(t):
 	#logText.text += 
+	logText.finishTyping()
 	var com = t +'\n'
 	var ratio = float(len(com))/(len(logText.get_parsed_text()) + len(com))
 	var time_step = ratio/len(com)
@@ -32,7 +35,6 @@ func addLogText(t):
 	logText.append_text(t +'\n')
 	$typewriterTimer.start(scrollVal)
 	logText.startTyping(1-ratio, time_step)
-	
 
 func updateTheme(t):
 	theme = t

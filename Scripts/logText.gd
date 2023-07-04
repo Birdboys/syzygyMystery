@@ -14,6 +14,8 @@ func _process(delta):
 
 func finishTyping():
 	visible_ratio = 1
+	typing = false
+	emit_signal("done_typing")
 
 func startTyping(ratio, step):
 	typing = true

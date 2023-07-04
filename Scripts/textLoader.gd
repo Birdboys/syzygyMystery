@@ -39,7 +39,7 @@ func getLookText(room_name, object_name, object_id, prep):
 			if look_text_id in look_data:
 				return look_data[look_text_id]
 			else:
-				print("INVALID LOOK TEXT ID")
+				print("INVALID LOOK TEXT ID %s" % look_text_id)
 				return null
 		else:
 			print("some kinda look data loading error")	

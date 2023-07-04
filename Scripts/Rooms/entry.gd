@@ -9,7 +9,7 @@ func _init():
 	objects = [defaultObject.new('door',['door'],['under']),
 	defaultObject.new('coat_rack',['coat','coats','rack','hanger']),
 	defaultObject.new('mail_slot',['mail','slot']),
-	defaultObject.new('peephole', ['peep','hole','peephole']),
-	defaultObject.new('floor_mat',['mat', 'rug'])]
+	#defaultObject.new('peephole', ['peep','hole','peephole']),
+	defaultObject.new('floor_mat',['mat', 'rug'], ['under'])]
 	look_text = 'entry_default'
 
