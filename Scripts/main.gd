@@ -7,6 +7,7 @@ extends Node2D
 @onready var rooms = {}
 @onready var theme_id = 0
 @onready var num_themes = 4
+@onready var mode = 0 #0-LOOK,1-MENU
 @export var currentRoom: String
 
 # Called when the node enters the scene tree for the first time.
@@ -26,21 +27,29 @@ func _process(delta):
 	pass
 
 func _on_ui_issue_command(command):
-	UI.addLogText("[b]%s[/b]" %(command))
-	var parsed_command = Parser.parseCommand(command)
-	if parsed_command == null:	
-		UI.addLogText("I don't know what you mean")
-		return
-	match parsed_command['verb']:
-		'help': executeHelp(parsed_command)
-		'look': executeLook(parsed_command, command)
-		'speak': executeSpeak(parsed_command)
-		'use': executeUse(parsed_command)
-		'go': executeGo(parsed_command)
-		'map': executeMap(parsed_command)
-		'inventory': executeInventory(parsed_command)
-		'take': executeTake(parsed_command)
-		_ : print("THE FUCK JUST HAPPENED")
+	match mode:
+		0: #navigation mode
+			UI.addLogText("[b]%s[/b]" %(command))
+			var parsed_command = Parser.parseCommand(command)
+			if parsed_command == null:	
+				UI.addLogText("I don't know what you mean")
+				return
+			match parsed_command['verb']:
+				'help': executeHelp(parsed_command)
+				'look': executeLook(parsed_command, command)
+				'speak': executeSpeak(parsed_command)
+				'use': executeUse(parsed_command)
+				'go': executeGo(parsed_command)
+				'map': executeMap(parsed_command)
+				'inventory': executeInventory(parsed_command)
+				'take': executeTake(parsed_command)
+				_ : print("THE FUCK JUST HAPPENED")
+		1: #map mode
+			if Parser.parseCloseCommand(command): #if close action
+				UI.closeMenu(mode)
+				mode = 0
+				UI.addLogText("Closed map")
+				
 
 func executeLook(command_data, command):
 	print(command_data, command)
@@ -77,6 +86,8 @@ func executeLook(command_data, command):
 func executeHelp(command_data):
 	UI.addLogText(help_text)
 func executeMap(command_data):
+	mode = 1
+	UI.enterMap(theme_names[theme_id])
 	print("EXECUTING MAP COMMAND")
 func executeUse(command_data):
 	print("EXECUTING USE COMMAND")
@@ -125,4 +136,5 @@ func setTheme(t):
 	UI.updateTheme(themes[t])
 	$UILAYER/BG.theme = themes[t]
 	UI.updateLookImage(currentRoom,t)
+	UI.updateShopImage(t)
 	

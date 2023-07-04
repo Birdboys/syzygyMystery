@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=8 format=3 uid="uid://dwphwrxs1ek5x"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://dwphwrxs1ek5x"]
 
 [ext_resource type="FontFile" uid="uid://3hmiw1bfys74" path="res://Assets/fonts/Agdasima-Bold.ttf" id="1_k2jvm"]
 [ext_resource type="FontFile" uid="uid://bjjbicluls55w" path="res://Assets/fonts/Agdasima-Regular.ttf" id="2_4ovij"]
@@ -16,6 +16,11 @@ border_color = Color(0.117647, 0.109804, 0.196078, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w3q2g"]
 bg_color = Color(0.117647, 0.109804, 0.196078, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r1w63"]
+bg_color = Color(0.117647, 0.109804, 0.196078, 1)
+border_width_bottom = 4
+border_color = Color(0.776471, 0.729412, 0.67451, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_agory"]
 bg_color = Color(0.776471, 0.729412, 0.67451, 1)
@@ -39,6 +44,8 @@ LineEdit/constants/caret_width = 2
 LineEdit/font_sizes/font_size = 24
 LineEdit/fonts/font = ExtResource("1_k2jvm")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_w3q2g")
+MenuPanel/base_type = &"Panel"
+MenuPanel/styles/panel = SubResource("StyleBoxFlat_r1w63")
 Panel/styles/panel = SubResource("StyleBoxFlat_agory")
 RichTextLabel/colors/default_color = Color(0.776471, 0.729412, 0.67451, 1)
 RichTextLabel/colors/font_outline_color = Color(0.776471, 0.729412, 0.67451, 1)

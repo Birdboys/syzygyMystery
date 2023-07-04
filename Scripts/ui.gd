@@ -33,6 +33,17 @@ func updateTheme(t):
 
 func updateLookImage(im, t):
 	lookImage.texture = load("res://Assets/temp_rooms/%s/%s.png" % [t, im])
-
+func updateShopImage(t):
+	$mapPanel/mapImage.texture = load("res://Assets/maps/map_%s.png" % t)
 func updateLookText(t):
 	lookText.text = t
+
+func enterMap(theme_name):
+	$mapPanel/mapImage.texture = load("res://Assets/maps/map_%s.png" % theme_name)
+	$mapPanel.visible = true
+	$imagePanel.visible = false
+
+func closeMenu(menu):
+	$imagePanel.visible = true
+	match menu:
+		1: $mapPanel.visible = false

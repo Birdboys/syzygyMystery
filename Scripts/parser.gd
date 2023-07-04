@@ -2,6 +2,7 @@ extends Node
 
 @onready var operations = ['help','go','look','use','map','inventory','speak','take']
 @onready var prepositions = ['above, at, behind, below, on, beneath, in, to, under, with']
+@onready var closers = ['close','c','quit','q','exit']
 @onready var real_words = {}
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -59,3 +60,7 @@ func parseCommand(command): #PARSE USER COMMAND
 	else:
 		print('not parsable command')
 		return null
+
+func parseCloseCommand(command):
+	var tokens = command.to_lower().split(' ').slice(1,) #split string and slice to get tokens
+	return tokens[0] in closers
