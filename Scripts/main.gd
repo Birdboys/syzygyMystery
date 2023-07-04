@@ -52,7 +52,6 @@ func _on_ui_issue_command(command):
 				
 
 func executeLook(command_data, command):
-	print(command_data, command)
 	var look_target = command_data['direct_object']
 	if look_target == null: #validate empty look
 		if command == '> look': #if its really empty
@@ -69,7 +68,6 @@ func executeLook(command_data, command):
 		if look_result == null: #invalid object look id
 			UI.addLogText("UNIMPLEMENTED LOOK ID")
 		else:
-			print(look_result)
 			UI.addLogText(look_result)
 	else:
 		var look_data = rooms[currentRoom].isObjectInRoom(look_target, look_prep) #get data from looked at object if it exists
@@ -80,7 +78,6 @@ func executeLook(command_data, command):
 		if look_result == null: #invalid object look id
 			UI.addLogText("UNIMPLEMENTED LOOK ID")
 		else:
-			print(look_result)
 			UI.addLogText(look_result)
 	
 func executeHelp(command_data):

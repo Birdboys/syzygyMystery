@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://diwctax0r8rln"]
+[gd_scene load_steps=7 format=3 uid="uid://diwctax0r8rln"]
 
 [ext_resource type="Script" path="res://Scripts/ui.gd" id="1_cl1p8"]
 [ext_resource type="Theme" uid="uid://cebamptt1kt5w" path="res://Assets/themes/ygreen.tres" id="1_og7cw"]
 [ext_resource type="Texture2D" uid="uid://c7m0k5v2y71f7" path="res://Assets/temp_rooms/paperback/balcony.png" id="3_xn6we"]
+[ext_resource type="Script" path="res://Scripts/logText.gd" id="4_47nlu"]
 [ext_resource type="Texture2D" uid="uid://cgx2j82yd03gm" path="res://Assets/map.png" id="4_xr02f"]
 [ext_resource type="Script" path="res://Scripts/inputText.gd" id="5_ofolb"]
 
@@ -107,6 +108,7 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_vertical = 3
 scroll_following = true
+script = ExtResource("4_47nlu")
 
 [node name="divider" type="Panel" parent="."]
 layout_mode = 1
@@ -169,4 +171,9 @@ caret_blink = true
 caret_mid_grapheme = false
 script = ExtResource("5_ofolb")
 
+[node name="typewriterTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[connection signal="done_typing" from="textStuff/logText" to="." method="_on_log_text_done_typing"]
 [connection signal="text_submitted" from="inputText" to="." method="_on_input_text_text_submitted"]
+[connection signal="timeout" from="typewriterTimer" to="textStuff/logText" method="_on_typewriter_timer_timeout"]

@@ -5,6 +5,7 @@ extends Control
 @onready var lookImage = $imagePanel/lookImage
 @onready var spaceStrip = RegEx.new()
 @onready var lookText = $imagePanel/lookText
+@onready var scrollVal := 0.05
 signal issue_command(command)
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,11 +23,16 @@ func _on_input_text_text_submitted(new_text):
 	if len(command.split(' ')) > 1:
 		emit_signal("issue_command", command)
 
-func addLogText(t, add_space=false):
-	if add_space:
-		logText.append_text('  '+ t +'\n')
-	else:
-		logText.append_text(t +'\n')
+func addLogText(t):
+	#logText.text += 
+	var com = t +'\n'
+	var ratio = float(len(com))/(len(logText.get_parsed_text()) + len(com))
+	var time_step = ratio/len(com)
+	print(len(com), ratio, time_step)
+	logText.append_text(t +'\n')
+	$typewriterTimer.start(scrollVal)
+	logText.startTyping(1-ratio, time_step)
+	
 
 func updateTheme(t):
 	theme = t
@@ -47,3 +53,7 @@ func closeMenu(menu):
 	$imagePanel.visible = true
 	match menu:
 		1: $mapPanel.visible = false
+
+func _on_log_text_done_typing():
+	$typewriterTimer.stop()
+	pass # Replace with function body.
