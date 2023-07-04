@@ -8,7 +8,8 @@ extends Node2D
 @onready var theme_id = 0
 @onready var num_themes = 4
 @onready var mode = 0 #0-LOOK,1-MENU
-@export var currentRoom: String
+@onready var currentRoom
+@onready var prevRoom = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -94,8 +95,21 @@ func executeGo(command_data):
 	if room_change == null:
 		UI.addLogText("You must enter a location to move")
 		return
+	elif room_change == "back":
+		if prevRoom:
+			var temp = currentRoom
+			currentRoom = prevRoom
+			prevRoom = currentRoom
+			UI.updateLookImage(currentRoom, theme_names[theme_id])
+			UI.updateLookText(currentRoom[0].to_upper()+currentRoom.substr(1))
+			UI.addLogText("You have moved into the %s" %(currentRoom))
+		else:
+			UI.addLogText("There is no where to go back to")
+		return
+			
 	if rooms[currentRoom].isRoomConnected(room_change):
 		if room_change != currentRoom:
+			prevRoom = currentRoom
 			currentRoom = room_change
 			UI.updateLookImage(currentRoom, theme_names[theme_id])
 			UI.updateLookText(currentRoom[0].to_upper()+currentRoom.substr(1))
