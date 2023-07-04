@@ -38,7 +38,6 @@ func _on_ui_issue_command(command):
 		'go': executeGo(parsed_command)
 		'map': executeMap(parsed_command)
 		'inventory': executeInventory(parsed_command)
-		'examine': executeExamine(parsed_command)
 		'take': executeTake(parsed_command)
 		_ : print("THE FUCK JUST HAPPENED")
 
@@ -53,10 +52,12 @@ func executeLook(command_data, command):
 			return
 	var look_prep = command_data['prep'] #get the preposition from the look command
 	var look_result = null
+	if look_target == 'room':
+		look_target = currentRoom
 	if look_target == currentRoom: #if we are looking at current room
 		look_result = TextLoader.getLookText(currentRoom, currentRoom, rooms[currentRoom].look_text_id, null)
 		if look_result == null: #invalid object look id
-			UI.addLogText("WHAT THE FUCK EVEN HAPPENDEDNASD AS")
+			UI.addLogText("UNIMPLEMENTED LOOK ID")
 		else:
 			print(look_result)
 			UI.addLogText(look_result)
@@ -67,7 +68,7 @@ func executeLook(command_data, command):
 			return
 		look_result = TextLoader.getLookText(currentRoom, look_data[0], look_data[1], look_data[2])
 		if look_result == null: #invalid object look id
-			UI.addLogText("WHAT THE FUCK EVEN HAPPENDEDNASD AS")
+			UI.addLogText("UNIMPLEMENTED LOOK ID")
 		else:
 			print(look_result)
 			UI.addLogText(look_result)
@@ -94,17 +95,7 @@ func executeGo(command_data):
 	else:
 		UI.addLogText("Location not found: %s" %(room_change))
 	#print("EXECUTING GO COMMAND")
-func executeExamine(command_data):
-	var data = command_data['data']
-	var exam_object = null
-	for token in data:
-		exam_object = rooms[currentRoom].examineObject(token)
-		if exam_object:
-			var examine_text = TextLoader.getExamineText(currentRoom, exam_object.examine()[0], str(exam_object.examine()[1]))
-			UI.addLogText(examine_text)
-			return
-	UI.addLogText("That won't be of any help")
-	print("EXECUTING EXAMINE COMMAND")
+
 func executeInventory(command_data):
 	print("EXECUTING INVENTORY COMMAND")
 func executeSpeak(command_data):
