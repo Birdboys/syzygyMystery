@@ -22,6 +22,9 @@ func _ready():
 	UI.updateLookImage(currentRoom, theme_names[theme_id])
 	UI.updateLookText(currentRoom[0].to_upper()+currentRoom.substr(1))
 	EventListener.event_triggered.connect(handleEvent)
+	
+	UI.map_pressed.connect(executeMap)
+	UI.inventory_pressed.connect(executeInventory)
 	pass # Replace with function body.
 
 
@@ -95,6 +98,8 @@ func executeHelp(command_data):
 	UI.addLogText(help_text)
 func executeMap(command_data):
 	mode = 1
+	if command_data == null:
+		UI.addLogText('[b]> map[/b]')
 	UI.enterMap(theme_names[theme_id])
 	print("EXECUTING MAP COMMAND")
 func executeUse(command_data):
@@ -131,6 +136,8 @@ func executeGo(command_data):
 
 func executeInventory(command_data):
 	print(inventory)
+	if command_data == null:
+		UI.addLogText('[b]> inventory[/b]', true)
 	print("EXECUTING INVENTORY COMMAND")
 func executeSpeak(command_data):
 	print("EXECUTING SPEAK COMMAND")

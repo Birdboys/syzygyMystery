@@ -1,11 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://diwctax0r8rln"]
+[gd_scene load_steps=11 format=3 uid="uid://diwctax0r8rln"]
 
 [ext_resource type="Script" path="res://Scripts/ui.gd" id="1_cl1p8"]
 [ext_resource type="Theme" uid="uid://cbbach0iuxfwb" path="res://Assets/themes/monitorglow.tres" id="1_gawxa"]
 [ext_resource type="Texture2D" uid="uid://c7m0k5v2y71f7" path="res://Assets/temp_rooms/paperback/balcony.png" id="3_xn6we"]
 [ext_resource type="Script" path="res://Scripts/logText.gd" id="4_47nlu"]
+[ext_resource type="Texture2D" uid="uid://b2k80wemmbvwe" path="res://Assets/buttons/inventory_button1.png" id="4_qkayo"]
+[ext_resource type="Texture2D" uid="uid://bjnklgp63m10r" path="res://Assets/buttons/map_button1.png" id="4_rvxoy"]
 [ext_resource type="Texture2D" uid="uid://cgx2j82yd03gm" path="res://Assets/map.png" id="4_xr02f"]
 [ext_resource type="Script" path="res://Scripts/inputText.gd" id="5_ofolb"]
+[ext_resource type="Texture2D" uid="uid://cjy4qlns3uvvk" path="res://Assets/buttons/map_button2.png" id="5_t2s0f"]
+[ext_resource type="Texture2D" uid="uid://rrtlp4gui60w" path="res://Assets/buttons/inventory_button2.png" id="5_xpwo2"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -67,25 +71,30 @@ theme_override_constants/h_separation = -120
 theme_override_constants/v_separation = -40
 columns = 2
 
-[node name="Button3" type="Button" parent="imagePanel/Panel/GridContainer"]
+[node name="mapButton" type="TextureButton" parent="imagePanel/Panel/GridContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
+texture_normal = ExtResource("4_rvxoy")
+texture_pressed = ExtResource("5_t2s0f")
+texture_hover = ExtResource("5_t2s0f")
 
-[node name="Button4" type="Button" parent="imagePanel/Panel/GridContainer"]
+[node name="inventoryButton" type="TextureButton" parent="imagePanel/Panel/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+texture_normal = ExtResource("4_qkayo")
+texture_pressed = ExtResource("5_xpwo2")
+texture_hover = ExtResource("5_xpwo2")
+
+[node name="Button6" type="Button" parent="imagePanel/Panel/GridContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 
 [node name="Button5" type="Button" parent="imagePanel/Panel/GridContainer"]
-custom_minimum_size = Vector2(80, 80)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
-
-[node name="Button6" type="Button" parent="imagePanel/Panel/GridContainer"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -185,6 +194,8 @@ script = ExtResource("5_ofolb")
 [node name="typewriterTimer" type="Timer" parent="."]
 wait_time = 0.1
 
+[connection signal="pressed" from="imagePanel/Panel/GridContainer/mapButton" to="." method="_on_map_button_pressed"]
+[connection signal="pressed" from="imagePanel/Panel/GridContainer/inventoryButton" to="." method="_on_inventory_button_pressed"]
 [connection signal="done_typing" from="textStuff/logText" to="." method="_on_log_text_done_typing"]
 [connection signal="text_submitted" from="inputText" to="." method="_on_input_text_text_submitted"]
 [connection signal="timeout" from="typewriterTimer" to="textStuff/logText" method="_on_typewriter_timer_timeout"]
