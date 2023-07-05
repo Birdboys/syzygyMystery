@@ -10,6 +10,7 @@ extends Control
 signal issue_command(command) 
 signal map_pressed(dude)
 signal inventory_pressed(dude)
+signal menu_closed
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	spaceStrip.compile('\\s+')
@@ -59,11 +60,22 @@ func enterMap(theme_name):
 	$mapPanel/mapImage.texture = load("res://Assets/maps/map_%s.png" % theme_name)
 	$mapPanel.visible = true
 	$imagePanel.visible = false
+	
+func enterInventory(theme_name, lines):
+	$inventoryPanel.visible = true
+	$imagePanel.visible = false
+	$inventoryPanel/inventoryText.clear()
+	
+	for item in lines:
+		var res = TextLoader.getLookText(item[1], item[0], "inv", "at")
+		print(res)
+		$inventoryPanel/inventoryText.append_text("[b]%s[/b] found in [b]%s[/b]: %s\n" %[item[0].to_upper(),item[1].to_upper(),res])
 
 func closeMenu(menu):
 	$imagePanel.visible = true
 	match menu:
-		1: $mapPanel.visible = false
+		1: $mapPanel.visible = false; addLogText("Closed map")
+		2: $inventoryPanel.visible = false; addLogText("Closed inventory")
 
 func _on_log_text_done_typing():
 	$typewriterTimer.stop()
@@ -73,3 +85,14 @@ func _on_map_button_pressed():
 	emit_signal("map_pressed", null)
 func _on_inventory_button_pressed():
 	emit_signal("inventory_pressed", null)
+
+
+func _on_close_map_button_down():
+	emit_signal("menu_closed")
+	closeMenu(1)
+	pass # Replace with function body.
+
+func _on_close_inventory_pressed():
+	emit_signal("menu_closed")
+	closeMenu(2)
+	pass # Replace with function body.

@@ -30,6 +30,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	#print(mode)
 	pass
 
 func _on_ui_issue_command(command):
@@ -50,11 +51,10 @@ func _on_ui_issue_command(command):
 				'inventory': executeInventory(parsed_command)
 				'take': executeTake(parsed_command)
 				_ : print("THE FUCK JUST HAPPENED")
-		1: #map mode
+		1 | 2: #map mode
 			if Parser.parseCloseCommand(command): #if close action
 				UI.closeMenu(mode)
 				mode = 0
-				UI.addLogText("Closed map")
 				
 
 func executeLook(command_data, command):
@@ -76,7 +76,7 @@ func executeLook(command_data, command):
 		else:
 			UI.addLogText(look_result)
 	elif look_target in inventory: #check if its in inventory
-		look_result = TextLoader.getLookText(currentRoom, look_target, "inv", look_prep)
+		look_result = TextLoader.getLookText(inventory[look_target].room, look_target, "inv", look_prep)
 		if look_result == null: #invalid object look id
 			UI.addLogText("UNIMPLEMENTED LOOK ID")
 		else:
@@ -135,9 +135,14 @@ func executeGo(command_data):
 	#print("EXECUTING GO COMMAND")
 
 func executeInventory(command_data):
+	mode = 2
 	print(inventory)
 	if command_data == null:
 		UI.addLogText('[b]> inventory[/b]', true)
+	var lines = []
+	for item in inventory:
+		lines.append([inventory[item].name, inventory[item].room])
+	UI.enterInventory(theme_names[theme_id], lines)
 	print("EXECUTING INVENTORY COMMAND")
 func executeSpeak(command_data):
 	print("EXECUTING SPEAK COMMAND")
@@ -193,3 +198,7 @@ func handleEvent(event):
 		"take_entry_key": var ret_item = rooms["entry"].tookObject('key','floor_mat'); addToInventory(ret_item); print("took key %s" %(inventory))
 		"take_freezer_wire": var ret_item = rooms["kitchen"].tookObject('cord','freezer'); addToInventory(ret_item); print("took cord %s" %(inventory))
 	pass
+
+func _on_ui_menu_closed():
+	mode = 0
+	pass # Replace with function body.

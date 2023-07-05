@@ -1,6 +1,7 @@
 class_name defaultObject
 
 var name = null
+var room = ""
 var alias = [name]
 var been_examined = false
 var in_inventory = false
@@ -13,9 +14,10 @@ var take_item = []
 var take_signal
 var discoverable = true
 
-func _init(n, al, dis=true, p=[null,'at']):
+func _init(n, al, r, dis=true, p=[null,'at']):
 	name = n
 	alias = al
+	room = r
 	look_preps = p
 	discoverable = dis
 

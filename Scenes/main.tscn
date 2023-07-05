@@ -26,3 +26,4 @@ theme = ExtResource("2_wf1pm")
 
 [connection signal="issue_command" from="UILAYER/UI" to="." method="_on_ui_issue_command"]
 [connection signal="map_pressed" from="UILAYER/UI" to="." method="_on_ui_map_pressed"]
+[connection signal="menu_closed" from="UILAYER/UI" to="." method="_on_ui_menu_closed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://diwctax0r8rln"]
+[gd_scene load_steps=12 format=3 uid="uid://diwctax0r8rln"]
 
 [ext_resource type="Script" path="res://Scripts/ui.gd" id="1_cl1p8"]
 [ext_resource type="Theme" uid="uid://cbbach0iuxfwb" path="res://Assets/themes/monitorglow.tres" id="1_gawxa"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://Scripts/inputText.gd" id="5_ofolb"]
 [ext_resource type="Texture2D" uid="uid://cjy4qlns3uvvk" path="res://Assets/buttons/map_button2.png" id="5_t2s0f"]
 [ext_resource type="Texture2D" uid="uid://rrtlp4gui60w" path="res://Assets/buttons/inventory_button2.png" id="5_xpwo2"]
+[ext_resource type="FontFile" uid="uid://3hmiw1bfys74" path="res://Assets/fonts/Agdasima-Bold.ttf" id="10_4atrm"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -165,20 +166,60 @@ texture = ExtResource("4_xr02f")
 expand_mode = 3
 stretch_mode = 4
 
-[node name="Label" type="Label" parent="mapPanel"]
+[node name="closeMap" type="Button" parent="mapPanel"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -58.0
+offset_left = -100.0
+offset_top = -43.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_fonts/font = ExtResource("10_4atrm")
 theme_override_font_sizes/font_size = 24
-text = "'close' to exit  "
-vertical_alignment = 2
+text = "'q' to exit  "
+flat = true
+alignment = 0
+
+[node name="inventoryPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -33.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"MenuPanel"
+
+[node name="inventoryText" type="RichTextLabel" parent="inventoryPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 36
+theme_override_font_sizes/bold_font_size = 36
+
+[node name="closeInventory" type="Button" parent="inventoryPanel"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -43.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("10_4atrm")
+theme_override_font_sizes/font_size = 24
+text = "'q' to exit  "
+flat = true
+alignment = 0
 
 [node name="inputText" type="LineEdit" parent="."]
 layout_mode = 2
@@ -197,5 +238,7 @@ wait_time = 0.1
 [connection signal="pressed" from="imagePanel/Panel/GridContainer/mapButton" to="." method="_on_map_button_pressed"]
 [connection signal="pressed" from="imagePanel/Panel/GridContainer/inventoryButton" to="." method="_on_inventory_button_pressed"]
 [connection signal="done_typing" from="textStuff/logText" to="." method="_on_log_text_done_typing"]
+[connection signal="button_down" from="mapPanel/closeMap" to="." method="_on_close_map_button_down"]
+[connection signal="pressed" from="inventoryPanel/closeInventory" to="." method="_on_close_inventory_pressed"]
 [connection signal="text_submitted" from="inputText" to="." method="_on_input_text_text_submitted"]
 [connection signal="timeout" from="typewriterTimer" to="textStuff/logText" method="_on_typewriter_timer_timeout"]
