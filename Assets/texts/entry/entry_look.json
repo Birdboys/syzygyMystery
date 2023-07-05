@@ -1,8 +1,18 @@
 {
-	"0":"The entryway to the apartment. A decorative floor mat and minimal coat rack mark the only flare in an upscale yet woefully barebones apartment. Hallways leading to the closet, bathroom, and bedroom are all visible, as is the open kitchen to the left.",
+	"0":"The entryway to the apartment. A decorative floor mat and minimal coat rack mark the only flare in a nice-enough but woefully barebones apartment. Hallways leading to the bathroom and bedroom are visible, as is the open kitchen to the left.",
 	"door":"A sturdy wooden door with a knobby handle. Envelopes lay scattered about the floor under the mail slot and a padlock appears to be missing.",
-	"door":"How did you pick up the door?",
+	"doorat":"A sturdy wooden door with a knobby handle. Envelopes lay scattered about the floor under the mail slot and a padlock appears to be missing.",
 	"doorunder":"Light from the hallway spills in through the crack under the door.",
 	"floor_mat":"\"Enjoy Your Time In Orbit\" is written in bold letters on the mat. The phrase is barely legible beneath the layers of dirt and dust.",
-	"floor_matunder":"You grab the least filthy corner of the mat and lift. When the dust settles, you can see a small metal key laying on the floor."
+	"floor_matat":"\"Enjoy Your Time In Orbit\" is written in bold letters on the mat. The phrase is barely legible beneath the layers of dirt and dust.",
+	"floor_matunder":"You grab the least filthy corner of the mat and lift. When the dust settles, you can see a small metal key laying on the floor.",
+	"floor_matempty":"\"Enjoy Your Time In Orbit\" is written in bold letters on the mat. The phrase is barely legible beneath the layers of dirt and dust.",
+	"floor_matemptyat":"\"Enjoy Your Time In Orbit\" is written in bold letters on the mat. The phrase is barely legible beneath the layers of dirt and dust.",
+	"floor_matemptyunder":"You grab the least filthy corner of the mat and lift. When the dust settles, you can see the spot on the floor where the small key was.",
+	"key":"A small metal key.",
+	"keyat":"A small metal key.",
+	"keyinv":"A small metal key.",
+	"keyinvat":"A small metal key.",
+	"coat_rack":"Four rounded metal hooks protrude from a wooden plank in the wall. The hanger closest to the door looks worn, though there is no coat on it, nor any other hook.",
+	"coat_rackat":"Four rounded metal hooks protrude from a wooden plank in the wall. The hanger closest to the door looks worn, though there is no coat on it, nor any other hook.",
 }

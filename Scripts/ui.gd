@@ -31,7 +31,7 @@ func addLogText(t):
 	var com = t +'\n'
 	var ratio = float(len(com))/(len(logText.get_parsed_text()) + len(com))
 	var time_step = ratio/len(com)
-	print(len(com), ratio, time_step)
+	#print(len(com), ratio, time_step)
 	logText.append_text(t +'\n')
 	$typewriterTimer.start(scrollVal)
 	logText.startTyping(1-ratio, time_step)

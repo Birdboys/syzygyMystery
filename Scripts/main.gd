@@ -10,10 +10,10 @@ extends Node2D
 @onready var mode = 0 #0-LOOK,1-MENU
 @onready var currentRoom
 @onready var prevRoom = null
+@onready var inventory = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print(len(help_text))
 	initRooms()
 	#theme_id = RandomNumberGenerator.new().randi_range(0,num_themes)
 	theme_id = 0
@@ -21,6 +21,7 @@ func _ready():
 	setTheme(theme_names[theme_id])
 	UI.updateLookImage(currentRoom, theme_names[theme_id])
 	UI.updateLookText(currentRoom[0].to_upper()+currentRoom.substr(1))
+	EventListener.event_triggered.connect(handleEvent)
 	pass # Replace with function body.
 
 
@@ -71,6 +72,13 @@ func executeLook(command_data, command):
 			UI.addLogText("UNIMPLEMENTED LOOK ID")
 		else:
 			UI.addLogText(look_result)
+	elif look_target in inventory: #check if its in inventory
+		look_result = TextLoader.getLookText(currentRoom, look_target, "inv", look_prep)
+		if look_result == null: #invalid object look id
+			UI.addLogText("UNIMPLEMENTED LOOK ID")
+		else:
+			EventListener.processEvent("%s%s%s" %[look_target, "inv", look_prep])
+			UI.addLogText(look_result)
 	else:
 		var look_data = rooms[currentRoom].isObjectInRoom(look_target, look_prep) #get data from looked at object if it exists
 		if look_data == null: #if that object doesn't exist
@@ -80,6 +88,7 @@ func executeLook(command_data, command):
 		if look_result == null: #invalid object look id
 			UI.addLogText("UNIMPLEMENTED LOOK ID")
 		else:
+			EventListener.processEvent('look'+"".join(look_data))
 			UI.addLogText(look_result)
 	
 func executeHelp(command_data):
@@ -121,19 +130,36 @@ func executeGo(command_data):
 	#print("EXECUTING GO COMMAND")
 
 func executeInventory(command_data):
+	print(inventory)
 	print("EXECUTING INVENTORY COMMAND")
 func executeSpeak(command_data):
 	print("EXECUTING SPEAK COMMAND")
 func executeTake(command_data):
-	print("EXECUTING TAKE COMMAND")
+	var look_target = command_data['direct_object']
+	var look_prep = command_data['prep']
+	var look_ind = command_data['indirect_object']
+	if look_target == null: #validate empty look		
+		UI.addLogText("You need to take an object")
+		return
+		
+	var take_data = rooms[currentRoom].isTakableObjectInRoom(look_target, look_prep, look_ind) #get data from looked at object if it exists
+	print(take_data)
+	if take_data == null: #invalid object look id
+		UI.addLogText("You cannot take that object")
+	elif take_data[0] == "-1":
+		UI.addLogText("The %s is already in your inventory" % take_data[1])
+	else:
+		var take_result = TextLoader.getTakeText(currentRoom, take_data[0], take_data[1], take_data[2])
+		UI.addLogText(take_result)
+
 func updateUITheme(theme):
 	UI.updateTheme(theme)
 #[entry, closet, bathroom, kitchen, lounge room, balcony]
 func initRooms(): #n, adj, out, obj
 	rooms['entry'] = entryRoom.new()
+	rooms['kitchen'] = kitchenRoom.new()
 	rooms['closet'] = defaultRoom.new('closet',['entry','bathroom','bedroom'], false, [], 'closet_default')
 	rooms['bathroom'] = defaultRoom.new('bathroom', ['closet','bedroom','entry'], false, [], 'bathroom_default')
-	rooms['kitchen'] = defaultRoom.new('kitchen', ['entry','lounge'], false, [], 'kitchen_default')
 	rooms['lounge'] = defaultRoom.new('lounge', ['kitchen','balcony'], false, [], 'lounge_default')
 	rooms['balcony'] = defaultRoom.new('balcony', ['lounge'], true, [], 'balcony_default')
 	rooms['bedroom'] = defaultRoom.new('bedroom', ['bathroom', 'entry', 'closet'], false, [], 'bedroom_default')
@@ -149,4 +175,14 @@ func setTheme(t):
 	$UILAYER/BG.theme = themes[t]
 	UI.updateLookImage(currentRoom,t)
 	UI.updateShopImage(t)
+
+func addToInventory(item):
+	inventory[item.name] = item
 	
+func handleEvent(event):
+	match event:
+		"found_entry_key": rooms["entry"].foundObject('key')
+		"found_kitchen_wire":  rooms["kitchen"].foundObject('cord')
+		"take_entry_key": var ret_item = rooms["entry"].tookObject('key','floor_mat'); addToInventory(ret_item); print("took key %s" %(inventory))
+		"take_freezer_wire": var ret_item = rooms["kitchen"].tookObject('cord','freezer'); addToInventory(ret_item); print("took cord %s" %(inventory))
+	pass

@@ -18,6 +18,7 @@ func parseCommand(command): #PARSE USER COMMAND
 	var parsed_command = []
 	var command_data = {'verb':null,'prep':null,'direct_object':null,'indirect_object':null}
 	if tokens[0] not in operations: #make sure first thing is operation verb
+		print("NOT A COMMAND VERB")
 		return null
 	for token in tokens: #get word data from list of real words
 		if token in TextLoader.real_words:
@@ -49,16 +50,18 @@ func parseCommand(command): #PARSE USER COMMAND
 			parsed_command[x][2] = true
 			break
 	if 'prep' in parsed_command[1][1]: #if preposition is second word
+		if command_data['prep'] == null:
+			command_data['prep'] = parsed_command[1][0]
 		parsed_command[1][2] = true
-		command_data['prep'] = parsed_command[1][0]
+		
 			
 	print(command_data)
 	#print(parsed_command)
 	if len(parsed_command.filter(func(data): return data[2] == false)) == 0:
-		print('parsable command')
+		#print('parsable command')
 		return command_data
 	else:
-		print('not parsable command')
+		#print('not parsable command')
 		return null
 
 func parseCloseCommand(command):

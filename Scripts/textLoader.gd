@@ -1,5 +1,6 @@
 extends Node
 @onready var look_text_path = "res://Assets/texts/%s/%s_look.json"
+@onready var take_text_path = "res://Assets/texts/%s/%s_take.json"
 @onready var look_text
 @onready var real_words
 # Called when the node enters the scene tree for the first time.
@@ -30,7 +31,7 @@ func getLookText(room_name, object_name, object_id, prep):
 	var object_look_text_path = look_text_path % [room_name, room_name]
 	prep = prep if prep else ""
 	var look_text_id = "%s" % object_id if room_name == object_name else "%s%s%s" % [object_name, object_id, prep]
-	print(look_text_id)
+	#print(look_text_id)
 	#print(object_examine_path)
 	if FileAccess.file_exists(object_look_text_path): #we have data
 		var look_data = FileAccess.open(object_look_text_path, FileAccess.READ)
@@ -45,6 +46,28 @@ func getLookText(room_name, object_name, object_id, prep):
 			print("some kinda look data loading error")	
 	else:
 		print("invalid look text path")
+		return null
+		
+func getTakeText(room_name, object_name, object_id, prep):
+	var object_take_text_path = take_text_path % [room_name, room_name]
+	prep = prep if prep else ""
+	var take_text_id = "%s%s%s" % [object_name, object_id, prep]
+	print(take_text_id)
+	#print(object_examine_path)
+	if FileAccess.file_exists(object_take_text_path): #we have data
+		var take_data = FileAccess.open(object_take_text_path, FileAccess.READ)
+		take_data = JSON.parse_string(take_data.get_as_text())
+		if take_data is Dictionary:
+			if take_text_id in take_data:
+				return take_data[take_text_id]
+			else:
+				print("INVALID TAKE TEXT ID %s" % take_text_id)
+				return null
+		else:
+			return null
+			print("some kinda take data loading error")	
+	else:
+		print("invalid take text path")
 		return null
 func getRealWords():
 	if FileAccess.file_exists("res://Assets/texts/real_words.json"): #we have data

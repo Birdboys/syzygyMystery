@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 Parser="*res://Scripts/parser.gd"
 TextLoader="*res://Scripts/textLoader.gd"
+EventListener="*res://Scripts/eventListener.gd"
 
 [display]
 

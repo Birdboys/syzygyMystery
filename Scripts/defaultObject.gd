@@ -7,22 +7,24 @@ var in_inventory = false
 var takeable = false
 var look_text_id = ""
 var look_preps = []
+var take_text_id = ""
+var take_preps = []
+var take_item = []
+var take_signal
+var discoverable = true
 
-func _init(n, al, p=[], ex=false,inv=false,take=false):
+func _init(n, al, dis=true, p=[null,'at']):
 	name = n
 	alias = al
-	been_examined = ex
-	in_inventory = inv
-	takeable = take
 	look_preps = p
-	
-func take():
-	if takeable and not in_inventory:
-		in_inventory = true
-		return true
-	else:
-		return false
+	discoverable = dis
 
+func setTake(preps, item, take_s):
+	take_preps = preps
+	take_item = item
+	takeable = true
+	take_signal = take_s
+	
 func use():
 	pass
 	
@@ -30,7 +32,24 @@ func isObject(token):
 	return token in alias
 	
 func look(prep):
+	if not discoverable:
+		return null
 	if prep in look_preps:
 		return [name, look_text_id, prep]
 	else:
-		return [name, look_text_id, null]
+		null
+
+func take(prep, indirect):
+	if not discoverable:
+		return null
+	elif in_inventory: #if already in inventory
+		return ["-1", name]
+	elif prep in take_preps and indirect in take_item:
+		var ret = [name, take_text_id, prep]
+		in_inventory = true
+		look_text_id = "inv"
+		EventListener.processEvent(take_signal)
+		return ret
+	else:
+		return null
+		
