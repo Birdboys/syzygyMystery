@@ -6,7 +6,6 @@ extends Node
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	real_words = getRealWords()
-	print(real_words)
 	look_text = getRoomLookText(look_text_path)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

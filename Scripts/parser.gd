@@ -66,4 +66,5 @@ func parseCommand(command): #PARSE USER COMMAND
 
 func parseCloseCommand(command):
 	var tokens = command.to_lower().split(' ').slice(1,) #split string and slice to get tokens
+	print(tokens)
 	return tokens[0] in closers and len(tokens) == 1

@@ -11,6 +11,7 @@ extends Node2D
 @onready var currentRoom
 @onready var prevRoom = null
 @onready var inventory = {}
+@onready var commandLog = FileAccess.open("user://commandLog.txt", FileAccess.WRITE)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,6 +35,8 @@ func _process(delta):
 	pass
 
 func _on_ui_issue_command(command):
+	commandLog.store_line(command)
+	commandLog.flush()
 	match mode:
 		0: #navigation mode
 			UI.addLogText("[b]%s[/b]" %(command))
@@ -51,10 +54,11 @@ func _on_ui_issue_command(command):
 				'inventory': executeInventory(parsed_command)
 				'take': executeTake(parsed_command)
 				_ : print("THE FUCK JUST HAPPENED")
-		1 | 2: #map mode
+		1,2: #map mode
 			if Parser.parseCloseCommand(command): #if close action
 				UI.closeMenu(mode)
 				mode = 0
+		
 				
 
 func executeLook(command_data, command):
@@ -136,7 +140,6 @@ func executeGo(command_data):
 
 func executeInventory(command_data):
 	mode = 2
-	print(inventory)
 	if command_data == null:
 		UI.addLogText('[b]> inventory[/b]', true)
 	var lines = []
@@ -202,3 +205,6 @@ func handleEvent(event):
 func _on_ui_menu_closed():
 	mode = 0
 	pass # Replace with function body.
+
+func _exit_tree():
+	commandLog.close()
